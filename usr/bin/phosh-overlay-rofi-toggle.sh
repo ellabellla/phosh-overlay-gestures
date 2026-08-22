@@ -5,7 +5,7 @@ pid=$(ps aux | grep "rofi -config /etc/phosh-overlay-gestures/rofi-config.rasi" 
 
 if [ -z "$pid" ]; then
         busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true
-        rofi -config /etc/phosh-overlay-gestures/rofi-config.rasi -show combi -show-icons -combi-hide-mode-prefix -modes combi -combi-modi "window,drun" > /dev/null 2>&1 && busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b false &
+        rofi -config /etc/phosh-overlay-gestures/rofi-config.rasi -show combi -show-icons -combi-hide-mode-prefix -modes combi -combi-modi "window,drun" -window-format "{t}" > /dev/null 2>&1 && busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b false &
         sleep 0.2
         busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true
 else
