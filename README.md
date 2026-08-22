@@ -26,7 +26,7 @@ Made for use with [Droidian port for Poco X3 Pro](https://github.com/droidian-va
 
 * Right-to-Left long swipe - Emulate Alt+F4
 
-* Short vertical swipe up - Toggle Rofi with drun/window/web search modes
+* Short vertical swipe up - Toggle Rofi with window/drun modes
 
 * Short vertical swipe down - Toggle the notification drawer
 

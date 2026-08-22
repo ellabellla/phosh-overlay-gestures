@@ -1,49 +1,56 @@
-	/************************************************
- * ROFI Color theme
- * User: leofa
- * Copyright: 2017 leofa
+/************************************************
+ * ROFI theme for phosh-overlay-gestures
+ * Touch-friendly sizing, positioned to clear the on-screen keyboard
  ***********************************************/
 
 * {
-    foreground:                  rgba ( 196, 203, 212, 100 % );
+    foreground:                  rgba ( 230, 230, 230, 100 % );
+    background:                  rgba ( 0, 0, 0, 100 % );
     alternate-normal-background: @background;
-    background:                  rgba ( 45, 48, 59, 100 % );
     selected-normal-background:  rgba ( 64, 132, 214, 100 % );
-    spacing:                     5;
-    separatorcolor:              @background;
+    spacing:                     8;
+    separatorcolor:              rgba ( 45, 45, 45, 100 % );
+    font:                        "Sans 13";
 }
 #window {
     background-color: @background;
     border:           0;
-    border-radius: 15px; 
-    padding: 10px; 
-    margin: 5px 7.5px 0 7.5px;
-    width: 80%;
-    height: 70%;
+    border-radius:    15px;
+    padding:          10px;
+    margin:           5px 4% 0 4%;
+    width:            92%;
+    height:           50%;
+    location:         north;
+    y-offset:         40px;
 }
 #listview {
     fixed-height: 0;
     border:       2px 0px 0px ;
     border-color: @separatorcolor;
-    spacing:      12px ;
+    spacing:      10px ;
     scrollbar:    false;
-    padding:      2px 0px 0px ;
+    padding:      8px 0px 0px ;
 }
 #element {
-    border:  0;
-    padding: 1px ;
+    border:        0;
+    padding:       12px 10px ;
+    border-radius: 10px;
+}
+#element selected {
+    background-color: @selected-normal-background;
+}
+#element-icon {
+    size: 36px;
 }
 #inputbar {
-    spacing:    0;
-    text-color: @normal-foreground;
-    padding:    1px ;
-}
-#inputbar {
+    spacing:    6px;
+    text-color: @foreground;
+    padding:    10px ;
     children:   [ textbox-prompt-colon,entry,case-indicator ];
 }
 #textbox-prompt-colon {
     expand:     false;
     str:        " ";
-    margin:     0px 0.3em 0em 0em ;
-    text-color: @normal-foreground;
+    margin:     0px 0.4em 0em 0em ;
+    text-color: @foreground;
 }
