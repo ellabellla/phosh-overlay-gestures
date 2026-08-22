@@ -19,7 +19,7 @@
     padding:          10px;
     margin:           0 4%;
     width:            92%;
-    height:           65%;
+    height:           50%;
     location:         north;
     y-offset:         40px;
 }
