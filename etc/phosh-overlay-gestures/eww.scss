@@ -19,11 +19,12 @@
   all: unset;
   background-color: #242424;
   color: #ffffff;
-  font: "Sans 13";
   padding: 10px;
   border-radius: 15px 0px 0px 15px;
   min-width: 260px;
   min-height: 420px;
+  font-family: Sans;
+  font-size: 13px;
 }
 
 .drawer-search {

@@ -5,15 +5,19 @@
 cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/phosh-overlay-gestures"
 mkdir -p "$cache_dir"
 
+# eww's (image :path ...) throws and aborts building the whole drawer if
+# given an empty/missing path, so every entry must resolve to a real file.
+fallback_icon="/etc/phosh-overlay-gestures/fallback-icon.svg"
+
 resolve_icon() {
         local name="$1"
-        [ -z "$name" ] && return
+        [ -z "$name" ] && echo "$fallback_icon" && return
         case "$name" in
                 /*) [ -f "$name" ] && echo "$name" && return ;;
         esac
 
         local cache_file="$cache_dir/icon-$name"
-        if [ -f "$cache_file" ]; then
+        if [ -s "$cache_file" ]; then
                 cat "$cache_file"
                 return
         fi
@@ -24,6 +28,7 @@ resolve_icon() {
                 "$HOME/.local/share/flatpak/exports/share/icons" \
                 \( -iname "$name.svg" -o -iname "$name.png" \) \
                 2>/dev/null | head -n1)
+        [ -z "$found" ] && found="$fallback_icon"
         echo "$found" > "$cache_file"
         echo "$found"
 }
