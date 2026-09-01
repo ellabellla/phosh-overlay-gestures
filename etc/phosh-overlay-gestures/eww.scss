@@ -9,6 +9,8 @@
 
 .drawer-tab {
   all: unset;
+  min-width: 14px;
+  min-height: 70px;
   background-color: rgba(36, 36, 36, 0.6);
   border-radius: 8px 0px 0px 8px;
 }
