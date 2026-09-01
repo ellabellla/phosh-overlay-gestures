@@ -2,7 +2,7 @@
 
 (defvar drawer-open false)
 (defvar search-text "")
-(defpoll drawer-entries :interval "2s" :initial "[]" "phosh-overlay-drawer-list.sh")
+(defpoll drawer-entries :interval "2s" :initial "[]" :run-while drawer-open "phosh-overlay-drawer-list.sh")
 
 (defwindow drawer-tab
   :monitor 0 :stacking "overlay" :wm-ignore true :focusable false
