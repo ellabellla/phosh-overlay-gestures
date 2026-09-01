@@ -41,7 +41,8 @@
             (label :text {entry.name} :limit-width 30)
 	))))
     ))
-    ))
+    )
+
 
 (defwindow quick-menu
   :monitor 0 :stacking "fg" :wm-ignore true
