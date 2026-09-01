@@ -1,5 +1,48 @@
 (defvar winrev false)
 
+(defvar drawer-open false)
+(defvar search-text "")
+(defpoll drawer-entries :interval "2s" :initial "[]" "phosh-overlay-drawer-list.sh")
+
+(defwindow drawer-tab
+  :monitor 0 :stacking "overlay" :wm-ignore true :focusable false
+  :geometry (geometry :x "0px"
+                      :y "0px"
+                      :width "14px"
+                      :height "70px"
+		      :anchor "center right"
+		      )
+  (button :class "drawer-tab" :onclick "phosh-overlay-launcher-toggle.sh" ""))
+
+(defwindow drawer
+  :monitor 0 :stacking "fg" :wm-ignore true
+  :geometry (geometry :x "0px"
+                      :y "0px"
+                      :width "10px"
+                      :height "10px"
+		      :anchor "center right"
+		      )
+      (revealer :transition "slideleft" :reveal drawer-open :duration "0.3s"
+  (drawer-wrapper)
+	))
+
+  (defwidget drawer-wrapper []
+(box :class "drawer" :orientation "v"
+       :space-evenly false
+       :spacing 10
+  (input :class "drawer-search" :value search-text :onchange "eww -c /etc/phosh-overlay-gestures update search-text={}")
+  (scroll :vscroll true :hscroll false
+    (box :orientation "v" :space-evenly false :spacing 4
+      (for entry in drawer-entries
+        (eventbox :onclick "phosh-overlay-drawer-activate.sh '${entry.action}' & phosh-overlay-launcher-toggle.sh"
+                  :visible {search-text == "" || matches(entry.name, "(?i)${search-text}")}
+          (box :class "drawer-entry" :orientation "h" :space-evenly false :spacing 10
+            (image :path {entry.icon} :image-width 32 :image-height 32)
+            (label :text {entry.name} :limit-width 30)
+	))))
+    ))
+    ))
+
 (defwindow quick-menu
   :monitor 0 :stacking "fg" :wm-ignore true
   :geometry (geometry :x "0px"

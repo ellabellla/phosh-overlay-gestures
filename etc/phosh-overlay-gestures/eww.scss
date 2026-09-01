@@ -7,6 +7,45 @@
   background-color: rgba(33, 40, 52, 0);
 }
 
+.drawer-tab {
+  all: unset;
+  background-color: rgba(36, 36, 36, 0.6);
+  border-radius: 8px 0px 0px 8px;
+}
+
+.drawer {
+  all: unset;
+  background-color: #242424;
+  color: #ffffff;
+  font: "Sans 13";
+  padding: 10px;
+  border-radius: 15px 0px 0px 15px;
+  min-width: 260px;
+  min-height: 420px;
+}
+
+.drawer-search {
+  all: unset;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #2a2a2a;
+  color: #ffffff;
+}
+
+.drawer-entry {
+  all: unset;
+  padding: 12px 10px;
+  border-radius: 10px;
+}
+
+.drawer-entry:hover {
+  all: unset;
+  padding: 12px 10px;
+  border-radius: 10px;
+  background-color: #3584e4;
+}
+
 .menu {
   all: unset;
   background-color: black;

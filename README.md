@@ -4,7 +4,7 @@ Additional swipe gestures to use with Phosh using [lisgd](https://git.sr.ht/~mil
 Made for use with [Droidian port for Poco X3 Pro](https://github.com/droidian-vayu/device-page) and available in it's apt repo, though I think it should work anywhere with Phosh (or maybe even without, nothing Phosh-specific here, maybe only keybinding emulation)
 
 ## Dependencies
-- [rofi-wayland](https://github.com/lbonn/rofi)
+- [wlrctl](https://sr.ht/~brocellous/wlrctl/) (used to list/focus open windows via `wlr-foreign-toplevel-management`)
 - [lisgd](https://git.sr.ht/~mil/lisgd)
 - [eww](https://github.com/elkowar/eww)
 - [wtype](https://github.com/atx/wtype)
@@ -26,9 +26,7 @@ Made for use with [Droidian port for Poco X3 Pro](https://github.com/droidian-va
 
 * Right-to-Left long swipe - Emulate Alt+F4
 
-* Short vertical swipe up - Toggle Rofi with window/drun modes
-
-* Short vertical swipe down - Toggle the notification drawer
+* Small pull-tab docked on the edge - Tap to open/close a drawer for searching and launching installed apps or switching to open windows
 
 <b>Bottom edge:</b>
 

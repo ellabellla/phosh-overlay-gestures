@@ -2,10 +2,6 @@
 
 #First lisgd instance
 lisgd -r 15 -d "$LISGD_INPUT_DEVICE" -m 400 \
-        `#Down-Up from the right edge swipe to toggle Rofi menu`\
-        -g "1,DU,R,*,R,setsid -f phosh-overlay-rofi-toggle.sh ; fbcli -E bell-terminal" \
-        `#Up-Down from the right edge swipe to toggle notification drawer`\
-        -g "1,UD,R,*,R,setsid -f wtype -M logo v -m logo" \
         `#Right-to-Left on the bottom swipe to switch windows forward`\
         -g "1,RL,B,*,R,setsid -f wtype -M alt -P tab -m alt -p tab ; fbcli -E bell-terminal" \
         `#Left-to-Right on the bottom swipe to switch windows backwards`\
