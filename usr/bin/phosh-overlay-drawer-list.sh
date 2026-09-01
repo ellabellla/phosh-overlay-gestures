@@ -17,9 +17,13 @@ resolve_icon() {
         esac
 
         local cache_file="$cache_dir/icon-$name"
-        if [ -s "$cache_file" ]; then
-                cat "$cache_file"
-                return
+        if [ -f "$cache_file" ]; then
+                local cached
+                cached=$(cat "$cache_file")
+                if [ -n "$cached" ]; then
+                        echo "$cached"
+                        return
+                fi
         fi
 
         local found
