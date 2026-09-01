@@ -15,7 +15,7 @@
   (button :class "drawer-tab" :onclick "phosh-overlay-launcher-toggle.sh" ""))
 
 (defwindow drawer
-  :monitor 0 :stacking "fg" :wm-ignore true :focusable true
+  :monitor 0 :stacking "fg" :wm-ignore true :focusable "ondemand"
   :geometry (geometry :x "0px"
                       :y "0px"
                       :width "10px"
