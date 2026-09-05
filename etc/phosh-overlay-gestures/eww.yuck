@@ -58,7 +58,7 @@
   (scroll :vscroll true :hscroll false :vexpand true
     (box :orientation "v" :space-evenly false :spacing 8
       (for entry in drawer-entries
-        (eventbox :class "drawer-entry" :timeout "2s" :onclick "phosh-overlay-drawer-activate.sh '${entry.action}' & phosh-overlay-drawer-close.sh &"
+        (eventbox :class "drawer-entry" :timeout "2s" :onclick "(phosh-overlay-drawer-close.sh; phosh-overlay-drawer-activate.sh '${entry.action}') &"
                   :visible {search-text == "" || matches(entry.name, "(?i)${search-text}")}
           (box :class "drawer-entry-content" :orientation "h" :space-evenly false :spacing 10
             (image :path {entry.icon} :image-width 32 :image-height 32)
@@ -77,7 +77,7 @@
 
   (defwidget action-button [label cmd]
 (button :class "action-button" :timeout "2s" :hexpand true :vexpand true
-        :onclick "${cmd} & phosh-overlay-drawer-close.sh &"
+        :onclick "(phosh-overlay-drawer-close.sh; ${cmd}) &"
   (label :text label)))
 
   (defwidget drawer-tabbar []
