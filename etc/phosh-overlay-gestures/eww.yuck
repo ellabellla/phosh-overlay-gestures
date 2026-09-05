@@ -1,21 +1,35 @@
-(defvar winrev false)
-
 (defvar drawer-open false)
 (defvar search-text "")
+(defvar drawer-view "apps")
 (defpoll drawer-entries :interval "2s" :initial "[]" :run-while drawer-open "phosh-overlay-drawer-list.sh")
+(defpoll quick-actions :interval "30s" :initial "[]" :run-while drawer-open "phosh-overlay-quick-actions-list.sh")
 
-(defwindow drawer-tab
+; tab-y is a window argument, not a global var: window :geometry can only
+; reference values passed via `eww open ... --arg`, never reactive
+; defvar/defpoll state (confirmed in eww's WindowInitiator - it builds
+; geometry from get_local_window_variables, which only ever contains
+; explicit --arg values). phosh-overlay-launch.sh and
+; phosh-overlay-tab-nudge.sh both pass --arg "tab-y=...", reading the
+; persisted value from ~/.cache/phosh-overlay-gestures/tab-y.
+(defwindow drawer-tab [tab-y]
   :monitor 0 :stacking "overlay" :wm-ignore true :focusable false
   :geometry (geometry :x "0px"
-                      :y "0px"
-                      :width "14px"
-                      :height "70px"
-		      :anchor "center right"
+                      :y {tab-y}
+                      :width "20px"
+                      :height "126px"
+		      :anchor "top right"
 		      )
-  (button :class "drawer-tab" :onclick "phosh-overlay-launcher-toggle.sh" ""))
+  (drawer-tab-widget))
+
+  (defwidget drawer-tab-widget []
+(box :orientation "v" :space-evenly false :spacing 2
+  (button :class "tab-nudge" :timeout "2s" :onclick "phosh-overlay-tab-nudge.sh up" "▲")
+  (button :class "drawer-tab" :timeout "2s" :onclick "phosh-overlay-launcher-toggle.sh &" "")
+  (button :class "tab-nudge" :timeout "2s" :onclick "phosh-overlay-tab-nudge.sh down" "▼")
+    ))
 
 (defwindow drawer
-  :monitor 0 :stacking "overlay" :wm-ignore true :focusable "ondemand"
+  :monitor 0 :stacking "overlay" :wm-ignore true :focusable "ondemand" :unfocus-close true
   :geometry (geometry :x "0px"
                       :y "0px"
                       :width "10px"
@@ -30,55 +44,50 @@
 (box :class "drawer" :orientation "v"
        :space-evenly false
        :spacing 10
-  (input :class "drawer-search" :value search-text :onchange "eww -c /etc/phosh-overlay-gestures update search-text={}")
-  (scroll :vscroll true :hscroll false
-    (box :orientation "v" :space-evenly false :spacing 4
+  (stack :vexpand true :selected {drawer-view == "actions" ? 1 : 0}
+    (apps-view)
+    (actions-view))
+  (drawer-tabbar)
+    ))
+
+  (defwidget apps-view []
+(box :orientation "v" :space-evenly false :spacing 10
+  (input :class "drawer-search" :value search-text :timeout "2s"
+         :onchange "eww -c /etc/phosh-overlay-gestures update search-text={}"
+         :onaccept "phosh-overlay-drawer-activate-top.sh")
+  (scroll :vscroll true :hscroll false :vexpand true
+    (box :orientation "v" :space-evenly false :spacing 8
       (for entry in drawer-entries
-        (eventbox :onclick "phosh-overlay-drawer-activate.sh '${entry.action}' & phosh-overlay-launcher-toggle.sh"
+        (eventbox :class "drawer-entry" :timeout "2s" :onclick "phosh-overlay-drawer-activate.sh '${entry.action}' & phosh-overlay-drawer-close.sh &"
                   :visible {search-text == "" || matches(entry.name, "(?i)${search-text}")}
-          (box :class "drawer-entry" :orientation "h" :space-evenly false :spacing 10
+          (box :class "drawer-entry-content" :orientation "h" :space-evenly false :spacing 10
             (image :path {entry.icon} :image-width 32 :image-height 32)
             (label :text {entry.name} :limit-width 30)
 	))))
     ))
     )
 
-
-(defwindow quick-menu
-  :monitor 0 :stacking "fg" :wm-ignore true
-  :geometry (geometry :x "0px"
-                      :y "30px"
-                      :width "10px"
-                      :height "10px"
-		      :anchor "bottom left"
-		      )
-      (revealer :transition "slideright" :reveal winrev :duration "0.3s"
-  (menu-wrapper)
-	))
-
-  (defwidget menu-wrapper []
-(box :class "menu-wrapper" :orientation "v"
-       :space-evenly false
-       :spacing 15
-  (top-menu)
-  (bottom-menu)
+  (defwidget actions-view []
+(box :orientation "v" :space-evenly true :spacing 8 :vexpand true
+  (for row in quick-actions
+    (box :orientation "h" :space-evenly true :spacing 8
+      (for action in row
+        (action-button :label {action.label} :cmd {action.cmd}))))
     ))
 
+  (defwidget action-button [label cmd]
+(button :class "action-button" :timeout "2s" :hexpand true :vexpand true
+        :onclick "${cmd} & phosh-overlay-drawer-close.sh &"
+  (label :text label)))
 
-  (defwidget top-menu []
-(box :class "menu" :orientation "v"
-       :space-evenly true
-       :spacing 15
-           (button :class "button" :onclick "wtype -M ctrl c -m ctrl & phosh-overlay-menu-toggle.sh" "")
-           (button :class "button" :onclick "wtype -M ctrl x -m ctrl & phosh-overlay-menu-toggle.sh" "")
-           (button :class "button" :onclick "wtype -M ctrl v -m ctrl & phosh-overlay-menu-toggle.sh" "")
-    ))
-
-  (defwidget bottom-menu []
-(box :class "menu" :orientation "v"
-       :space-evenly true
-       :spacing 15
-           (button :class "button" :onclick "keepassxc & phosh-overlay-menu-toggle.sh" "")
+  (defwidget drawer-tabbar []
+(box :class "drawer-tabbar" :orientation "h" :space-evenly true :spacing 8
+  (button :class {drawer-view == "apps" ? "drawer-tab-button drawer-tab-button-active" : "drawer-tab-button"}
+          :timeout "2s" :onclick "eww -c /etc/phosh-overlay-gestures update drawer-view=apps"
+    (label :text "Apps"))
+  (button :class {drawer-view == "actions" ? "drawer-tab-button drawer-tab-button-active" : "drawer-tab-button"}
+          :timeout "2s" :onclick "eww -c /etc/phosh-overlay-gestures update drawer-view=actions"
+    (label :text "Actions"))
     ))
 
 

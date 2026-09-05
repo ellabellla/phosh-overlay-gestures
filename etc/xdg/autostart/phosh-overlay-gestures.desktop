@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Phosh Overlay Gestures
-Comment=Swipe gesture daemon and quick-menu overlay for Phosh
+Comment=Swipe gesture daemon and app drawer overlay for Phosh
 Exec=env LISGD_INPUT_DEVICE=/dev/input/by-path/REPLACE_ME-event-touchscreen phosh-overlay-launch.sh
 X-GNOME-Autostart-enabled=true
 NoDisplay=true

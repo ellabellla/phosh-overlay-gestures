@@ -8,5 +8,5 @@ phosh-overlay-shutdown.sh > /dev/null 2>&1
 
 setsid -f eww -c /etc/phosh-overlay-gestures daemon > /dev/null 2>&1 &
 setsid -f eww -c /etc/phosh-overlay-gestures open right-gesture-block > /dev/null 2>&1 &
-setsid -f eww -c /etc/phosh-overlay-gestures open drawer-tab > /dev/null 2>&1 &
+setsid -f eww -c /etc/phosh-overlay-gestures open drawer-tab --arg "tab-y=$(phosh-overlay-tab-y-get.sh)" > /dev/null 2>&1 &
 setsid -f phosh-overlay-gestures-start.sh > /dev/null 2>&1

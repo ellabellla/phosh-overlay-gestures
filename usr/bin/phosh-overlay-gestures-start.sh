@@ -9,9 +9,7 @@ lisgd -r 15 -d "$LISGD_INPUT_DEVICE" -m 400 \
         `#Down-Right-to-Up-Left from the right bottom corner swipe to switch keyboard layout`\
         -g "1,DRUL,BR,*,P,setsid -f wtype -M logo -P space -m logo -p space ; fbcli -E bell-terminal" \
         `#Left-to-Right from the right edge long swipe to close the active window`\
-        -g "1,RL,R,L,R,setsid -f fbcli -E bell-terminal ; wtype -M alt -P F4 -m alt -p F4" \
-        `#Down-Left-to-Up-Right from the left bottom corner swipe to toggle quick menu visibility` \
-        -g "1,DLUR,BL,*,P,setsid -f phosh-overlay-menu-toggle.sh ; fbcli -E bell-terminal" &
+        -g "1,RL,R,L,R,setsid -f fbcli -E bell-terminal ; wtype -M alt -P F4 -m alt -p F4" &
 
 #Second lisgd instance to make gestures on the same edge and same direction working                    
 lisgd -m 150 -r 25 -d "$LISGD_INPUT_DEVICE" \

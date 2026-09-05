@@ -9,10 +9,19 @@
 
 .drawer-tab {
   all: unset;
-  min-width: 14px;
+  min-width: 20px;
   min-height: 70px;
   background-color: rgba(36, 36, 36, 0.6);
   border-radius: 8px 0px 0px 8px;
+}
+
+.tab-nudge {
+  all: unset;
+  min-width: 20px;
+  min-height: 22px;
+  color: #cccccc;
+  font-size: 10px;
+  background-color: rgba(36, 36, 36, 0.6);
 }
 
 .drawer {
@@ -38,15 +47,70 @@
 
 .drawer-entry {
   all: unset;
-  padding: 12px 10px;
   border-radius: 10px;
+  background-color: #2c2c2c;
 }
 
 .drawer-entry:hover {
   all: unset;
-  padding: 12px 10px;
   border-radius: 10px;
   background-color: #3584e4;
+}
+
+.drawer-entry:active {
+  all: unset;
+  border-radius: 10px;
+  background-color: #1c5eb0;
+}
+
+.drawer-entry-content {
+  all: unset;
+  padding: 14px 12px;
+}
+
+.drawer-tabbar {
+  all: unset;
+  margin-top: 10px;
+}
+
+.drawer-tab-button {
+  all: unset;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #2a2a2a;
+  color: #aaaaaa;
+}
+
+.drawer-tab-button-active {
+  all: unset;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #3584e4;
+  color: #ffffff;
+}
+
+.action-button {
+  all: unset;
+  padding: 20px 10px;
+  border-radius: 10px;
+  background-color: #2c2c2c;
+  color: #ffffff;
+}
+
+.action-button:hover {
+  all: unset;
+  padding: 20px 10px;
+  border-radius: 10px;
+  background-color: #3584e4;
+  color: #ffffff;
+}
+
+.action-button:active {
+  all: unset;
+  padding: 20px 10px;
+  border-radius: 10px;
+  background-color: #1c5eb0;
+  color: #ffffff;
 }
 
 .menu {

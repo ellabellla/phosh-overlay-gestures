@@ -14,7 +14,4 @@ sudo cp "$REPO_DIR"/etc/xdg/autostart/*.desktop /etc/xdg/autostart/
 sudo cp "$REPO_DIR"/usr/bin/*.sh /usr/bin/
 sudo chmod +x /usr/bin/phosh-overlay-*.sh
 
-echo "Warming up drawer icon/app cache..."
-/usr/bin/phosh-overlay-drawer-list.sh > /dev/null || true
-
 echo "Done. Run phosh-overlay-launch.sh to start it."
