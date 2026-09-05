@@ -29,7 +29,7 @@
     ))
 
 (defwindow drawer
-  :monitor 0 :stacking "overlay" :wm-ignore true :focusable "ondemand" :unfocus-close true
+  :monitor 0 :stacking "overlay" :wm-ignore true :focusable "exclusive" :unfocus-close true
   :geometry (geometry :x "0px"
                       :y "0px"
                       :width "10px"
